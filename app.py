@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from gradio_client import Client
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000","*"])
 
 # Define a Gradio client
 gradio_client = Client("https://pyakhurel-test.hf.space/--replicas/cwmlx/")
@@ -27,10 +29,7 @@ def predict_with_gradio():
             api_name="/chat"
         )
         
-        # Create a response and set 'no-cors' mode with appropriate headers
-        response = Response(jsonify({'result': result}), status=200)
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        return response
+        return jsonify({'result': result}
     else:
         return jsonify({'error': 'Missing message in the request'}), 400
 
