@@ -26,8 +26,11 @@ def predict_with_gradio():
             repetition_penalty,
             api_name="/chat"
         )
-
-        return jsonify({'result': result})
+        
+        # Create a response and set 'no-cors' mode with appropriate headers
+        response = Response(jsonify({'result': result}), status=200)
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        return response
     else:
         return jsonify({'error': 'Missing message in the request'}), 400
 
