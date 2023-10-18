@@ -29,7 +29,7 @@ def predict_with_gradio():
             api_name="/chat"
         )
         
-        return jsonify({'result': result}
+        return jsonify({'result': result})
     else:
         return jsonify({'error': 'Missing message in the request'}), 400
 
